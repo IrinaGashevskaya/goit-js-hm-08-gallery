@@ -63,7 +63,7 @@ export default [
     description: 'Lighthouse Coast Sea',
   },
 ];
-import {default as images } from '/gallery-items.js';
+import {default as images } from './gallery-items.js';
 const galleryList =  document.querySelector('.js-gallery');
 const refs = {
      lightbox: document.querySelector('.lightbox'),
