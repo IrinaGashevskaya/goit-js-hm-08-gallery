@@ -69,9 +69,6 @@ const refs = {
      lightbox: document.querySelector('.lightbox'),
   btn: document.querySelector('[data-action="close-lightbox"]')
 };
-
-
-
   
   images.forEach(src =>{
     renderImage(src);
@@ -80,35 +77,37 @@ const refs = {
   function renderImage(src) {
     const li = document.createElement('li');
     const image = document.createElement('img');
-    li.appendChild(image);
-    galleryList.appendChild(li);
-    image.dataset.source = src.original;
-    image.src = src.preview;
-    image.alt = src.description;
     const a = document.createElement('a');
     a.classList.add('gallery__link');
     a.href = src.original;
-    li.appendChild(a);
+    li.append(image, a);
+    galleryList.append(li);
+    image.dataset.source = src.original;
+    image.src = src.preview;
+    image.alt = src.description;
     li.classList.add('gallery__item');
     image.classList.add('gallery__image');
   }
 
   function onClickHandler(e) {
-  
-      refs.lightbox.classList.add('is-open');
-      refs.lightbox.querySelector('.lightbox__image').src = e.target.dataset.source;
-      refs.lightbox.querySelector('.lightbox__image').alt = e.target.alt;
-      
-      refs.btn.classList.add('lightbox__button');
-      refs.btn.classList.add('close-lightbox');
+    setAttributes(e.target.dataset.source, e.target.alt);
+    refs.lightbox.classList.add('is-open');
+    refs.btn.classList.add('lightbox__button');
+    refs.btn.classList.add('close-lightbox');
   }
+
   function onCloseHandler(e) {
-   
-      refs.lightbox.classList.remove('is-open');
-      refs.lightbox.querySelector('.lightbox__image').src = '';
+    setAttributes('', '');
+    refs.lightbox.classList.remove('is-open');
   }
+
  galleryList.addEventListener('click', onClickHandler);
  refs.btn.addEventListener('click', onCloseHandler);
+
+ function setAttributes(src, alt) {
+  refs.lightbox.querySelector('.lightbox__image').src = src;
+  refs.lightbox.querySelector('.lightbox__image').alt = alt;
+ }
 
  
 
