@@ -69,11 +69,12 @@ const refs = {
      lightbox: document.querySelector('.lightbox'),
   btn: document.querySelector('[data-action="close-lightbox"]')
 };
+const markup = images.map(src =>{
+ return renderImage(src);
+});
+galleryList.append(...markup);
   
-  images.forEach(src =>{
-    renderImage(src);
-  });
-
+  
   function renderImage(src) {
     const li = document.createElement('li');
     const image = document.createElement('img');
@@ -81,12 +82,13 @@ const refs = {
     a.classList.add('gallery__link');
     a.href = src.original;
     li.append(image, a);
-    galleryList.append(li);
+    
     image.dataset.source = src.original;
     image.src = src.preview;
     image.alt = src.description;
     li.classList.add('gallery__item');
     image.classList.add('gallery__image');
+    return li;
   }
 
   function onClickHandler(e) {
